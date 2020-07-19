@@ -22,18 +22,29 @@ public class Movement : MonoBehaviour
 
     private void ProcessInput()
     {
+        Thrusting();
 
-        if(Input.GetKey(KeyCode.Space))
+        Rotation();
+    }
+
+    private void Thrusting()
+    {
+        if (Input.GetKey(KeyCode.Space))
         {
             //relative force because we want to use local coordinates// 
             //vector3 up adds force in the y direction//
             rocket.AddRelativeForce(Vector3.up);
-            if(!thruster.isPlaying)
+            if (!thruster.isPlaying)
                 thruster.Play(0);
 
         }
-        //can thrust and rotate
-        if(Input.GetKey(KeyCode.A))
+    }
+
+    private void Rotation()
+    {
+        //taking manual control of rotation
+        rocket.freezeRotation = true; 
+        if (Input.GetKey(KeyCode.A))
         {
             //vector3 forward is +z direction
             //rotates according to left thumb rule
@@ -41,12 +52,14 @@ public class Movement : MonoBehaviour
             if (thruster.isPlaying)
                 thruster.Stop();
         }
-        else if(Input.GetKey(KeyCode.D))
+        else if (Input.GetKey(KeyCode.D))
         {
             //rotates according to left thumb rule
             transform.Rotate(-(Vector3.forward));
             if (thruster.isPlaying)
                 thruster.Stop();
         }
+        //resuming physical rotation
+        rocket.freezeRotation = false;
     }
 }

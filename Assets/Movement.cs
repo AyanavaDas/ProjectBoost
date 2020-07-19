@@ -32,7 +32,7 @@ public class Movement : MonoBehaviour
         {
             //vector3 forward is +z direction
             //rotates according to left thumb rule
-            transform.Rotate(Vector3.forward)
+            transform.Rotate(Vector3.forward);
         }
         else if(Input.GetKey(KeyCode.D))
         {

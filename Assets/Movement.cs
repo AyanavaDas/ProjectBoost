@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    // Start is called before the first frame update
+    Rigidbody rocket;
+ 
     void Start()
     {
-        
+        rocket = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         ProcessInput();
@@ -23,16 +23,21 @@ public class Movement : MonoBehaviour
 
         if(Input.GetKey(KeyCode.Space))
         {
-            
+            //relative force because we want to use local coordinates// 
+            //vector3 up adds force in the y direction//
+            rocket.AddRelativeForce(Vector3.up);
         }
         //can thrust and rotate
         if(Input.GetKey(KeyCode.A))
         {
-
+            //vector3 forward is +z direction
+            //rotates according to left thumb rule
+            transform.Rotate(Vector3.forward)
         }
         else if(Input.GetKey(KeyCode.D))
         {
-
+            //rotates according to left thumb rule
+            transform.Rotate(-(Vector3.forward));
         }
     }
 }

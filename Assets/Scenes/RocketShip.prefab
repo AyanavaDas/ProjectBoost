@@ -467,6 +467,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2360855833676518941}
   - component: {fileID: 6392324762436360885}
+  - component: {fileID: 6104540166907083730}
   m_Layer: 0
   m_Name: RocketShip
   m_TagString: Untagged
@@ -508,6 +509,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &6104540166907083730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6584783480542501259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5989111965b1e1c4f83a5ec9294043cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8614699131593943612
 GameObject:
   m_ObjectHideFlags: 0

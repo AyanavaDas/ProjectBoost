@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
+    [SerializeField] float mainThrust = 100f;
+    [SerializeField] float rotationThrust = 100f;
+
     Rigidbody rocket;
     AudioSource thruster;
  
@@ -33,7 +36,8 @@ public class Movement : MonoBehaviour
         {
             //relative force because we want to use local coordinates// 
             //vector3 up adds force in the y direction//
-            rocket.AddRelativeForce(Vector3.up);
+            float v = Time.deltaTime * mainThrust;
+            rocket.AddRelativeForce(Vector3.up*v);
             if (!thruster.isPlaying)
                 thruster.Play(0);
 
@@ -43,21 +47,23 @@ public class Movement : MonoBehaviour
     private void Rotation()
     {
         //taking manual control of rotation
-        rocket.freezeRotation = true; 
+        rocket.freezeRotation = true;
+        float w = Time.deltaTime * rotationThrust;
         if (Input.GetKey(KeyCode.A))
         {
             //vector3 forward is +z direction
             //rotates according to left thumb rule
-            transform.Rotate(Vector3.forward);
-            if (thruster.isPlaying)
+            transform.Rotate(Vector3.forward*w);
+           /* if (thruster.isPlaying)
                 thruster.Stop();
+            */
         }
         else if (Input.GetKey(KeyCode.D))
         {
             //rotates according to left thumb rule
-            transform.Rotate(-(Vector3.forward));
-            if (thruster.isPlaying)
-                thruster.Stop();
+            transform.Rotate(-(Vector3.forward)*w);
+            /*if (thruster.isPlaying)
+                thruster.Stop();*/
         }
         //resuming physical rotation
         rocket.freezeRotation = false;

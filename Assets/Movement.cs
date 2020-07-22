@@ -23,6 +23,19 @@ public class Movement : MonoBehaviour
         
     }
 
+    void OnCollisionEnter(Collision collision)
+    {
+        switch (collision.gameObject.tag)
+        {
+            case "Friendly":
+                print("ok");
+                break;
+            default:
+                print("dead");
+                break;
+        }
+           
+    }
     private void ProcessInput()
     {
         Thrusting();

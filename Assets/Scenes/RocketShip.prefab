@@ -471,7 +471,7 @@ GameObject:
   - component: {fileID: 559825077}
   m_Layer: 0
   m_Name: RocketShip
-  m_TagString: Untagged
+  m_TagString: Friendly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -502,7 +502,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6584783480542501259}
   serializedVersion: 2
-  m_Mass: 0.075
+  m_Mass: 1
   m_Drag: 0.2
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -522,6 +522,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5989111965b1e1c4f83a5ec9294043cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainThrust: 1000
+  rotationThrust: 150
 --- !u!82 &559825077
 AudioSource:
   m_ObjectHideFlags: 0

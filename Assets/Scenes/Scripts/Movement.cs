@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Movement : MonoBehaviour
 {
@@ -10,6 +11,9 @@ public class Movement : MonoBehaviour
 
     Rigidbody rocket;
     AudioSource thruster;
+    enum State{ Alive,Dead, New };
+    State state = State.Alive;
+
  
     void Start()
     {
@@ -19,23 +23,48 @@ public class Movement : MonoBehaviour
 
     void Update()
     {
-        ProcessInput();
+        if(state== State.Alive)
+            ProcessInput();
         
     }
 
     void OnCollisionEnter(Collision collision)
     {
+        if (state != State.Alive)
+            return;
+
         switch (collision.gameObject.tag)
         {
             case "Friendly":
-                print("ok");
+
                 break;
+            case "Finish":
+                {
+                    state = State.New;
+                    Invoke("LoadNextLevel", 1f);
+                    break;
+                }
             default:
-                print("dead");
-                break;
+                {
+                    state = State.Dead;
+                    Invoke("LoadInitLevel", 1f);
+                    break;
+                }
         }
            
     }
+
+    private void LoadInitLevel()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    private void LoadNextLevel()
+    {
+        SceneManager.LoadScene(1);
+
+    }
+
     private void ProcessInput()
     {
         Thrusting();

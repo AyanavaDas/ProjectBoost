@@ -11,8 +11,12 @@ public class Movement : MonoBehaviour
     [SerializeField] AudioClip mainEngine;
     [SerializeField] AudioClip levelFinish;
     [SerializeField] AudioClip death;
+    [SerializeField] ParticleSystem mainEngineParticles;
+    [SerializeField] ParticleSystem levelFinishParticles;
+    [SerializeField] ParticleSystem deathParticles;
     Rigidbody rocket;
     AudioSource thruster;
+
     enum State{ Alive,Dead, New };
     State state = State.Alive;
 
@@ -21,6 +25,7 @@ public class Movement : MonoBehaviour
     {
         rocket = GetComponent<Rigidbody>();
         thruster = GetComponent<AudioSource>();
+ 
     }
 
     void Update()
@@ -59,6 +64,7 @@ public class Movement : MonoBehaviour
         state = State.New;
         thruster.Stop();
         thruster.PlayOneShot(levelFinish);
+        levelFinishParticles.Play();
         Invoke("LoadNextLevel", 1f);
     }
 
@@ -67,6 +73,7 @@ public class Movement : MonoBehaviour
         state = State.Dead;
         thruster.Stop();
         thruster.PlayOneShot(death);
+        deathParticles.Play();
         Invoke("LoadInitLevel", 1f);
     }
 
@@ -98,11 +105,13 @@ public class Movement : MonoBehaviour
             rocket.AddRelativeForce(Vector3.up*v);
             if (!thruster.isPlaying)
                 thruster.PlayOneShot(mainEngine);
+            mainEngineParticles.Play();
 
         }
         else
         {
             thruster.Stop();
+            mainEngineParticles.Stop();
         }
     }
 

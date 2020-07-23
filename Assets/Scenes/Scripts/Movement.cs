@@ -8,6 +8,7 @@ public class Movement : MonoBehaviour
 {
     [SerializeField] float mainThrust = 100f;
     [SerializeField] float rotationThrust = 100f;
+    [SerializeField] float loadTime = 1f;
     [SerializeField] AudioClip mainEngine;
     [SerializeField] AudioClip levelFinish;
     [SerializeField] AudioClip death;
@@ -65,7 +66,7 @@ public class Movement : MonoBehaviour
         thruster.Stop();
         thruster.PlayOneShot(levelFinish);
         levelFinishParticles.Play();
-        Invoke("LoadNextLevel", 1f);
+        Invoke("LoadNextLevel", loadTime);
     }
 
     private void DeathSequence()
@@ -74,7 +75,7 @@ public class Movement : MonoBehaviour
         thruster.Stop();
         thruster.PlayOneShot(death);
         deathParticles.Play();
-        Invoke("LoadInitLevel", 1f);
+        Invoke("LoadInitLevel", loadTime);
     }
 
     private void LoadInitLevel()

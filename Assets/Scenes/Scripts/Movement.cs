@@ -8,7 +8,9 @@ public class Movement : MonoBehaviour
 {
     [SerializeField] float mainThrust = 100f;
     [SerializeField] float rotationThrust = 100f;
-
+    [SerializeField] AudioClip mainEngine;
+    [SerializeField] AudioClip levelFinish;
+    [SerializeField] AudioClip death;
     Rigidbody rocket;
     AudioSource thruster;
     enum State{ Alive,Dead, New };
@@ -40,18 +42,32 @@ public class Movement : MonoBehaviour
                 break;
             case "Finish":
                 {
-                    state = State.New;
-                    Invoke("LoadNextLevel", 1f);
+                    FinishSequence();
                     break;
                 }
             default:
                 {
-                    state = State.Dead;
-                    Invoke("LoadInitLevel", 1f);
+                    DeathSequence();
                     break;
                 }
         }
            
+    }
+
+    private void FinishSequence()
+    {
+        state = State.New;
+        thruster.Stop();
+        thruster.PlayOneShot(levelFinish);
+        Invoke("LoadNextLevel", 1f);
+    }
+
+    private void DeathSequence()
+    {
+        state = State.Dead;
+        thruster.Stop();
+        thruster.PlayOneShot(death);
+        Invoke("LoadInitLevel", 1f);
     }
 
     private void LoadInitLevel()
@@ -81,8 +97,12 @@ public class Movement : MonoBehaviour
             float v = Time.deltaTime * mainThrust;
             rocket.AddRelativeForce(Vector3.up*v);
             if (!thruster.isPlaying)
-                thruster.Play(0);
+                thruster.PlayOneShot(mainEngine);
 
+        }
+        else
+        {
+            thruster.Stop();
         }
     }
 
@@ -96,16 +116,13 @@ public class Movement : MonoBehaviour
             //vector3 forward is +z direction
             //rotates according to left thumb rule
             transform.Rotate(Vector3.forward*w);
-           /* if (thruster.isPlaying)
-                thruster.Stop();
-            */
+
         }
         else if (Input.GetKey(KeyCode.D))
         {
             //rotates according to left thumb rule
             transform.Rotate(-(Vector3.forward)*w);
-            /*if (thruster.isPlaying)
-                thruster.Stop();*/
+
         }
         //resuming physical rotation
         rocket.freezeRotation = false;

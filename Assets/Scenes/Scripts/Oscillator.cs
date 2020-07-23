@@ -6,7 +6,7 @@ using UnityEngine;
 {
 
     [SerializeField] Vector3 movementVector;
-    [Range (0,1)][SerializeField] float movementFactor;
+    [Range(0,1)] float movementFactor=0f;
     [SerializeField] float timePeriod=4f;
     Vector3 initPosition;
     void Start()

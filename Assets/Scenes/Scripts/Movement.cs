@@ -18,27 +18,27 @@ public class Movement : MonoBehaviour
     Rigidbody rocket;
     AudioSource thruster;
 
-    enum State{ Alive,Dead, New };
+    enum State { Alive, Dead, New };
     State state = State.Alive;
 
- 
+
     void Start()
     {
         rocket = GetComponent<Rigidbody>();
         thruster = GetComponent<AudioSource>();
- 
+
     }
 
     void Update()
     {
-        if(state== State.Alive)
+        if (state == State.Alive)
             ProcessInput();
-        
+
     }
 
     void OnCollisionEnter(Collision collision)
     {
-        if (state != State.Alive|| true) //to be removed
+        if (state != State.Alive||true) //to be removed
             return;
 
         switch (collision.gameObject.tag)

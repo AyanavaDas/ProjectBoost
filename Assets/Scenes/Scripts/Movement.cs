@@ -80,12 +80,13 @@ public class Movement : MonoBehaviour
 
     private void LoadInitLevel()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     private void LoadNextLevel()
     {
-        SceneManager.LoadScene(1);
+        int nextScene = ((SceneManager.GetActiveScene().buildIndex) + 1) % (SceneManager.sceneCountInBuildSettings);
+        SceneManager.LoadScene(nextScene);
 
     }
 

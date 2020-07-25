@@ -38,7 +38,7 @@ public class Movement : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (state != State.Alive||true) //to be removed
+        if (state != State.Alive) 
             return;
 
         switch (collision.gameObject.tag)
